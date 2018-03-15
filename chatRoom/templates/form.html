@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>form</title>
+</head>
+<body>
+	<form action="/postfile" method="post">
+		<input type="text" placeholder="Account" name="account">
+		<input type="password" placeholder="passwd" name="passwd">
+		<input type="submit">
+		<script type="text/javascript">
+				function getCookie(name){
+					cook=document.cookie.match("\\b"+name+"([^;]*)\\b")
+					return cook ? cook[1]:undefined
+
+				}
+				console.log(getCookie('_xsrf'))
+			</script>
+	</form>
+</body>
+</html>

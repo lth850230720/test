@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="UTF-8"/>
+	<title>HTML Form Login</title>
+
+	<link rel="stylesheet" href="../static/css/bootstrap_real.css"/>
+	<link rel="stylesheet" href="../static/css/style.css"/>
+
+	<style type="text/css">
+		body {
+			background-color: #16273b;
+			color: white;
+		}
+
+		legend {
+			color: white;
+		}
+
+	</style>
+</head>
+<body>
+<form id="frmLogin" style="background: rgba(39,60,125,1);">
+	<fieldset>
+		<legend>Authentication</legend>
+		<div class="control-group">
+			<label for="username" class="control-label">账号</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<input type="text" id="username" class=" form-control" placeholder="username" onpaste="return false" oncopy="return false"/>
+				<span id="user_check_pen" class="input-group-addon" style="background-color: #fdfdfe;"><i
+						class="glyphicon glyphicon-pencil"></i></span>
+				<span id="user_check_false" class="input-group-addon"
+				      style="color:red;background-color: #fdfdfe;display: none;"><i
+						class="glyphicon glyphicon-remove"></i></span>
+				<span id="user_check_ok" class="input-group-addon"
+				      style="color:green;background-color: #fdfdfe;display: none;"><i
+						class="glyphicon glyphicon-ok"></i></span>
+			</div>
+			<!--<span class="input-group-addon "><i class="glyphicon glyphicon-user"></i>* Please inform your username</span>-->
+			<span class="help" id="login_user_id" style="color: #eb6661"><i id="login_user"
+			                                                                class="glyphicon glyphicon-exclamation-sign"></i></span>
+		</div>
+
+		<div class="control-group">
+			<label for="password" class="control-label">密码</label>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				<input type="password" id="password" class="form-control" placeholder="password"
+				       onblur="login_pass_check()" maxlength="30" onpaste="return false" oncopy="return false"/>
+				<span id="passwd_open" class="input-group-addon" style="background-color: #fdfdfe;display: none"><i
+						class="glyphicon glyphicon-eye-open"></i></span>
+				<span id="passwd_close" class="input-group-addon" style="background-color: #fdfdfe;"><i
+						class="glyphicon glyphicon-eye-close"></i></span>
+			</div>
+			<span class="help" id="login_passwd_id" style="color: #eb6661"><i
+					class="glyphicon glyphicon-exclamation-sign"></i></span>
+		</div>
+		<div style="margin-top: 5px">
+			<!--<label for="rememberMe" class="checkbox">-->
+			<!--<input type="checkbox" id="rememberMe" />-->
+			<!--Remember Me-->
+			<!--</label>-->
+			<input id="login_bt" type="button" value="注册" class="btn btn-info" data-toggle="modal"
+			       data-target="#myModal" style="float: right;margin-left: 10px; "/>
+			<input type="button" value="登陆" class="btn btn-success" onclick="func_login()" style="float: right "/>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document" style="top: 10%;">
+				<div class="modal-content" style="background-color:#80aa5d;">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true" style="color: white;">×</span></button>
+						<h4 class="modal-title" id="myModalLabel" style="font-style: inherit">注册页面</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<!--<img class="img-rounded col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-7 "  src="../static/img/rabbit.png" />-->
+							<div class="control-group col-xs-6 col-sm-6 col-lg-6 col-md-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3"
+							     style="margin-top: 15px; ">
+								<div id="regist_user_name" class="input-group"
+								     style="margin-top: 15px"><span class="input-group-addon"><i
+										class="glyphicon glyphicon-user"></i></span>
+									<input type="text" id="regist_username" class=" form-control" placeholder="输入用户名" oncopy="return false" onpaste="return false" />
+								</div>
+								<span id="regist_username_span" class="help" style="color: #eb6661"><i
+										class="glyphicon glyphicon-exclamation-sign"></i></span>
+								<div id="regist_user_passwd" class="input-group"
+								     style="margin-top: 15px"><span class="input-group-addon"><i
+										class="glyphicon glyphicon-lock"></i></span>
+									<input type="password" id="regist_password" class=" form-control" placeholder="输入密码" oncopy="return false" onpaste="return false"/>
+									<span id="regist_passwd_open" class="input-group-addon" style="background-color: #fdfdfe;display: none"><i
+										class="glyphicon glyphicon-eye-open"></i></span>
+									<span id="regist_passwd_close" class="input-group-addon" style="background-color: #fdfdfe;"><i
+										class="glyphicon glyphicon-eye-close"></i></span>
+								</div>
+								<span id="regist_password_span" class="help"
+								      style="color: #eb6661;"><i
+										class="glyphicon glyphicon-exclamation-sign"></i></span>
+								<div id="regist_t_user_passwd" class="input-group"
+								     style="margin-top: 15px"><span class="input-group-addon"><i
+										class="glyphicon glyphicon-lock"></i></span>
+									<input type="password" id="regist_twice_password" class=" form-control"
+									       placeholder="再次输入密码" oncopy="return false" onpaste="return false"/>
+									<span id="regist_t_passwd_open" class="input-group-addon" style="background-color: #fdfdfe;display: none"><i
+										class="glyphicon glyphicon-eye-open"></i></span>
+									<span id="regist_t_passwd_close" class="input-group-addon" style="background-color: #fdfdfe;"><i
+										class="glyphicon glyphicon-eye-close"></i></span>
+								</div>
+								<span id="regist_twice_password_span" class="help"
+								      style="color: #eb6661"></span>
+								<div id="regist_user_mailbox" class="input-group"
+								     style="margin-top: 15px"><span class="input-group-addon"><i
+										class="glyphicon glyphicon-envelope"></i></span>
+									<input type="text" id="mailbox" class=" form-control"
+									       placeholder="邮箱" oncopy="return false"  onpaste="return false"/>
+								</div>
+								<span id="mailbox_span" class="help " style="color: #eb6661"><i
+										class="glyphicon glyphicon-exclamation-sign"></i></span>
+							</div>
+						</div>
+						<br/>
+					</div>
+					<div class="modal-footer">
+						<br/>
+						<input type="button" value="关闭" class="btn btn-danger but-lg" data-dismiss="modal"/>
+						<input type="button" value="注册" class="btn btn-success but-lg" onclick="user_regist()"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</form>
+<!--<input type="text" id="tttt" value=""/>-->
+
+
+<script src="../static/js/jquery-3.3.1.js"></script>
+<!--<script src="../static/js/Cookie.js"></script>-->
+<!--<script src="../static/js/Login.js"></script>-->
+<script src="../static/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+	//	js端格式验证控制变量
+	//	用户名格式验证
+	login_user_success = false
+	//	密码格式验证
+	login_pwd_success = false
+	//	注册用户名验证格式
+	regist_user_success = false
+	//	注册密码格式验证
+	regist_pwd_success = false
+	//	重输密码格式验证
+	regist_twice_pwd_success=false
+	//	注册邮箱格式验证
+	regist_mail_success=false
+	function user_regist() {
+		username = $('#regist_username').val()
+		passwd = $('#regist_password').val()
+		t_passwd = $('#regist_twice_password').val()
+		mailNum = $('#mailbox').val()
+		alert(username+'   '+passwd+'   '+mailNum)
+		if(regist_user_success&&regist_pwd_success&&regist_twice_pwd_success&&regist_mail_success){
+			$.ajax({
+			type: 'post',
+			url: '/regist',
+			datatype: "json",
+			data: {username: username, passwd: passwd, mailNum:mailNum},
+			success: function (data) {
+//				$('#mailbox_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>注册成功，请返回登陆页面")
+//				$('#mailbox_span').show()
+				alert(data)
+			},
+
+		})
+		}
+		else{
+			$('#mailbox_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>请检查注册信息格式")
+			$('#mailbox_span').show()
+		}
+	}
+	function func_login() {
+		if(login_user_success&&login_pwd_success){
+			username = $('#username').val()
+			passwd = $('#password').val()
+			$.ajax({
+				type: "post",
+				url: "/login",
+				datatype: "json",
+				data: {username: username, passwd: passwd},
+				success: function (data) {
+	//				ale+rt(data["flag"])
+					if(data['flag']){
+
+					}
+					else{
+						$('#login_passwd_id').show()
+						$('#login_passwd_id').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>用户名或密码错误")
+					}
+	//				$("#login_user").html("assdsadasd")
+	//				$(".help").show()
+	//				$(".help").style.backgroundColor="red"
+				}
+			})
+		}
+		else{
+			$('#login_passwd_id').show()
+			$('#login_passwd_id').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>请检查账号密码格式")
+		}
+	}
+
+	//	登陆密码规范性检查
+	function login_pass_check() {
+		val = $('#password').val()
+		flag1 = isNotNull(val)
+		if (!flag1) {
+			$('#login_passwd_id').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>密码不能为空")
+			$('#login_passwd_id').show()
+			login_pwd_success = false
+		}
+		else {
+				$('#login_passwd_id').hide()
+				login_pwd_success = true
+		}
+	}
+	//登陆页面格式验证jquery写法
+	$(function () {
+		$('#username').change(function () {
+			$('#user_check_pen').hide()
+		})
+		$('#username').blur(function () {
+			val = $('#username').val()
+			flag1 = isNotNull(val)
+			if (!flag1) {
+				$('#login_user_id').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>用户名不能为空")
+				$('#user_check_false').show()
+				$('#user_check_pen').hide()
+				$('#user_check_ok').hide()
+				$('#login_user_id').show()
+			}
+			else {
+				$('#login_user_id').hide()
+				$('#user_check_false').hide()
+				$('#user_check_ok').show()
+				login_user_success = true
+			}
+		})
+		$('#username').click(function () {
+			$('#login_user_id').hide()
+		})
+		$('#password').click(function () {
+			$('#login_passwd_id').hide()
+		})
+		$('#passwd_close').click(function () {
+			$('#passwd_close').hide()
+			$('#passwd_open').show()
+			$('#password').attr('type', 'text')
+		})
+		$('#passwd_open').click(function () {
+			$('#passwd_open').hide()
+			$('#passwd_close').show()
+			$('#password').attr('type', 'password')
+		})
+	})
+
+	// 注册页面格式验证jquery写法
+	$(function () {
+		$("#regist_username").blur(function () {
+			username= $('#regist_username').val()
+			flag1 = isNotNull(username)
+			if (!flag1) {
+				$('#regist_username_span').show()
+				$('#regist_username_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>用户名不能为空")
+				regist_user_success = false
+			}
+			else {
+				$.ajax({
+					type: 'post',
+					url: '/userRegist',
+					datatype: "json",
+					data: {username: username},
+					success: function (data) {
+						if (data['flag']) {
+							$('#regist_username_span').show()
+							$('#regist_username_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>用户名可以注册")
+							regist_user_success = true
+						}
+						else {
+							$('#regist_username_span').show()
+							$('#regist_username_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>用户名已经存在")
+							regist_user_success = false
+						}
+					}
+				})
+			}
+		})
+		$('#regist_password').blur(function () {
+			registPwd=$('#regist_password').val()
+			flag1 = isNotNull(registPwd)
+			if (!flag1) {
+				$('#regist_password_span').show()
+				$('#regist_password_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>密码不能为空")
+				regist_pwd_success = false
+			}
+			else {
+				flag2 = isEnoughComplexity(registPwd)
+				if (!flag2) {
+					$('#regist_password_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>密码中必须包含字母、数字、特称字符，至少8个字符，最多20个字符")
+					$('#regist_password_span').show()
+					regist_pwd_success = false
+				}
+				else {
+					$('#regist_password_span').hide()
+					regist_pwd_success = true
+				}
+			}
+		})
+
+		$('#regist_twice_password').blur(function () {
+			registPwd=$('#regist_password').val()
+			registTwicePwd=$('#regist_twice_password').val()
+			flag1 = isNotNull(registTwicePwd)
+			if (!flag1) {
+				$('#regist_twice_password_span').show()
+				$('#regist_twice_password_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>密码不能为空")
+				regist_twice_pwd_success=false
+			}
+			else{
+				flag2=CheckNum(registPwd,registTwicePwd)
+				if(!flag2){
+					$('#regist_twice_password_span').show()
+					$('#regist_twice_password_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>两次密码不一致")
+					regist_twice_pwd_success=false
+				}
+				else{
+					$('#regist_twice_password_span').hide()
+					regist_twice_pwd_success=true
+				}
+			}
+		})
+		$('#mailbox').blur(function () {
+			mailNum=$('#mailbox').val()
+			flag1 = isNotNull(mailNum)
+			if (!flag1) {
+				$('#mailbox_span').show()
+				$('#mailbox_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>邮箱不能为空")
+				regist_mail_success = false
+			}
+			else {
+				flag2 = isEmail(mailNum)
+				if (!flag2) {
+					$('#mailbox_span').html("<i class=\"glyphicon glyphicon-exclamation-sign\"></i>邮箱格式不正确")
+					$('#mailbox_span').show()
+					regist_mail_success = false
+				}
+				else {
+					$('#mailbox_span').hide()
+					regist_mail_success = true
+				}
+			}
+		})
+//		点击隐藏提示框
+		$('#regist_username').click(function () {
+			$('#regist_username_span').hide()
+		})
+		$('#regist_password').click(function () {
+			$('#regist_password_span').hide()
+		})
+		$('#mailbox').click(function () {
+			$('#mailbox_span').hide()
+		})
+		$('#regist_twice_password').click(function () {
+			$('#regist_twice_password_span').hide()
+		})
+
+//		密码眼睛的实现
+		$('#regist_passwd_close').click(function () {
+			$('#regist_passwd_close').hide()
+			$('#regist_passwd_open').show()
+			$('#regist_password').attr('type', 'text')
+		})
+		$('#regist_passwd_open').click(function () {
+			$('#regist_passwd_open').hide()
+			$('#regist_passwd_close').show()
+			$('#regist_password').attr('type', 'password')
+		})
+		$('#regist_t_passwd_close').click(function () {
+			$('#regist_t_passwd_close').hide()
+			$('#regist_t_passwd_open').show()
+			$('#regist_twice_password').attr('type', 'text')
+		})
+		$('#regist_t_passwd_open').click(function () {
+			$('#regist_t_passwd_open').hide()
+			$('#regist_t_passwd_close').show()
+			$('#regist_twice_password').attr('type', 'password')
+		})
+	})
+
+
+	//	下面是功能性函数，调用
+	function isEmail(strEmail) {
+		if (strEmail.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) != -1)
+			return true;
+		else
+			return false;
+	}
+	//	两次密码一致性检查
+	function CheckNum(pwd, t_pwd) {
+		if (pwd == t_pwd) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	//	数据是否为空
+	function isNotNull(val) {
+		if (val == "") {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	//	密码的复杂度：密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符。
+	function isEnoughComplexity(pwd) {
+		var regex = new RegExp('(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{8,20}');
+		if (regex.test(pwd)) {
+			return true
+		}
+		else {
+			return false
+		}
+
+	}
+	$(document).ready(function () {
+		$('input').attr('maxlength','20')
+	})
+
+	//	$('#login_bt').click(function () {
+	//		alert('asdasdasd')
+	////        var a = $('#htmlid2').val();
+	//		$.ajax({
+	//			type: "post",
+	//			dataType: "json",
+	//			url: "/login",
+	//			data: {
+	//				a: "asdasasd"
+	//			},
+	//			success: function (res_data) {
+	////				if (res_data) {
+	////					$('#htmlid3').show()
+	////				}
+	//				alert(res_data)
+	//			}
+	//		})
+	//	})
+
+
+</script>
+</body>
+</html>
+
+<!--<div class="modal-dialog" role="document">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--...-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+
